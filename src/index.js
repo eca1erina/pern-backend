@@ -1,22 +1,56 @@
-require('dotenv').config(/*Env file location*/); 
+require('dotenv').config();
 const express = require('express');
-const eventRoutes = require('./routes/eventRoutes');
-const myDataSource = require('./config/database');
+const cors = require('cors');
 
-myDataSource
-  .initialize()
-  .then(async () => {
-    app.listen(port, () => {
-      console.log(`Server is running on port ${port}`);
-    });
-  })
-  .catch((err) => {
-    console.error("Error during Data Source initialization:", err)
-  })
+// Import routes
+const profileRoutes = require('./routes/profileRoutes');
+const categoryRoutes = require('./routes/categoryRoutes');
+const transactionRoutes = require('./routes/transactionRoutes');
+const budgetRoutes = require('./routes/budgetRoutes');
+const savingsGoalRoutes = require('./routes/savingsGoalRoutes');
 
 const app = express();
+const port = process.env.PORT || 3001;
+
+// Middleware
+app.use(cors({
+  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+  credentials: true
+}));
 app.use(express.json());
 
-const port = 3001;
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.json({ 
+    status: 'OK', 
+    message: 'Personal Finance API is running',
+    timestamp: new Date().toISOString()
+  });
+});
 
-app.use('/users', eventRoutes);
+// API routes
+app.use('/api/profile', profileRoutes);
+app.use('/api/categories', categoryRoutes);
+app.use('/api/transactions', transactionRoutes);
+app.use('/api/budgets', budgetRoutes);
+app.use('/api/savings-goals', savingsGoalRoutes);
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error('Unhandled error:', err);
+  res.status(500).json({ 
+    error: 'Internal server error',
+    message: process.env.NODE_ENV === 'development' ? err.message : undefined
+  });
+});
+
+// 404 handler
+app.use('*', (req, res) => {
+  res.status(404).json({ error: 'Route not found' });
+});
+
+app.listen(port, () => {
+  console.log(`🚀 Personal Finance API server running on port ${port}`);
+  console.log(`📊 Health check: http://localhost:${port}/health`);
+  console.log(`🔧 Environment: ${process.env.NODE_ENV || 'development'}`);
+});
