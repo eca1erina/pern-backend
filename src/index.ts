@@ -1,11 +1,16 @@
 import 'reflect-metadata';
 import dotenv from 'dotenv';
 dotenv.config();
+
 import express from 'express';
+import cors from 'cors'; 
 import eventRoutes from '@routes/eventRoutes';
 import myDataSource from '@config/database';
 
 const app = express();
+const port = 3001; 
+
+app.use(cors()); 
 app.use(express.json());
 
 myDataSource
@@ -18,7 +23,5 @@ myDataSource
   .catch((err) => {
     console.error('Error during Data Source initialization:', err);
   });
-
-const port = 3001;
 
 app.use('/users', eventRoutes);
