@@ -1,14 +1,14 @@
-import { DataSource } from 'typeorm';
+mport { DataSource } from 'typeorm';
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
 
 const config: PostgresConnectionOptions = {
   type: 'postgres',
   host: process.env.HOST,
   port: Number(process.env.PORT) || 5432,
-  username: process.env.USERNAME,
+  username: 'postgres',
   password: process.env.PASSWORD,
   database: process.env.DATABASE,
-  synchronize: false,
+  synchronize: true,
   entities: ['src/entities/*.ts'],
 };
 
