@@ -20,8 +20,13 @@ myDataSource
       console.log(`Server is running on port ${port}`);
     });
   })
-  .catch((err) => {
-    console.error('Error during Data Source initialization:', err);
-  });
+  .catch((err: unknown) => {
+  if (err instanceof Error) {
+    console.error('Error during Data Source initialization:', err.message);
+  } else {
+    console.error('Unknown error during Data Source initialization:', err);
+  }
+});
+
 
 app.use('/users', eventRoutes);
