@@ -3,6 +3,7 @@ import { Users } from '../entities/eventSchema';
 import dataSource from '@config/database';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import { Transaction } from '../entities/Transaction';
 
 export const getUsers = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -95,5 +96,44 @@ export const getCurrentUser = async (req: Request, res: Response): Promise<void>
   } catch (err) {
     console.error('Error fetching user:', err);
     res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+export const addTransaction = async (req: Request, res: Response) => {
+  try {
+    const { userId, type, category, amount, description, date, is_recurring } = req.body;
+
+    const transactionRepo = dataSource.getRepository(Transaction);
+    const newTransaction = transactionRepo.create({
+  user: { id: userId },
+  type,
+  category,
+  amount,
+  description,
+  date,
+  is_recurring,
+});
+
+    await transactionRepo.save(newTransaction);
+    res.status(201).json(newTransaction);
+  } catch (err) {
+    console.error('Error saving transaction:', err);
+    res.status(500).json({ message: 'Failed to add transaction' });
+  }
+};
+
+export const getUserTransactions = async (req: Request, res: Response) => {
+  const userId = parseInt(req.params.userId);
+
+  try {
+    const transactions = await dataSource.getRepository(Transaction).find({
+      where: { user: { id: userId } },
+      order: { date: 'DESC' },
+    });
+
+    res.status(200).json(transactions);
+  } catch (err) {
+    console.error('Error fetching transactions:', err);
+    res.status(500).json({ message: 'Failed to fetch transactions' });
   }
 };

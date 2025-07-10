@@ -1,5 +1,7 @@
 import { DataSource } from 'typeorm';
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
+import { Users } from '../entities/eventSchema';
+import { Transaction } from '../entities/Transaction'; 
 
 const config: PostgresConnectionOptions = {
   type: 'postgres',
@@ -9,7 +11,7 @@ const config: PostgresConnectionOptions = {
   password: process.env.PASSWORD,
   database: process.env.DATABASE,
   synchronize: true,
-  entities: ['src/entities/*.ts'],
+  entities: [Users, Transaction],
 };
 
 const dataSource = new DataSource(config);
