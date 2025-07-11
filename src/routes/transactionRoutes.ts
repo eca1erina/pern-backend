@@ -1,14 +1,24 @@
-import { Router } from 'express';
+import express from 'express';
 import {
   getTransactions,
   getIncomeTransactions,
   getExpensesTransactions,
-} from '@controllers/transactionController';
+  addTransaction,
+  deleteTransaction,
+} from '../controllers/transactionController';
 
-const router = Router();
+import {
+  getExpenseCategories
+} from '../controllers/categoriesController'
 
-router.get('/:userId', getTransactions);
-router.get('/income/:userId', getIncomeTransactions);
-router.get('/expense/:userId', getExpensesTransactions);
+const router = express.Router();
+
+router.get('/', getTransactions);
+router.get('/income', getIncomeTransactions);
+router.get('/expenses', getExpensesTransactions);
+router.post('/', addTransaction);
+router.delete('/:id', deleteTransaction);
+router.get('/categories/expense', getExpenseCategories);
+
 
 export default router;
