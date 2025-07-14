@@ -97,3 +97,49 @@ export const getCurrentUser = async (req: Request, res: Response): Promise<void>
     res.status(500).json({ message: 'Internal server error' });
   }
 };
+
+export const updateUser = async (req: Request, res: Response): Promise<void> => {
+  const userId = parseInt(req.params.id);
+  const { name, email, password } = req.body;
+
+  const repo = dataSource.getRepository(Users);
+
+  try {
+    const user = await repo.findOne({ where: { id: userId } });
+
+    if (!user) {
+      res.status(404).json({ message: 'User not found' });
+      return;
+    }
+
+    if (name) user.name = name;
+    if (email) {
+      // Check if the new email is already taken by another user
+      const emailExists = await repo.findOne({ where: { email } });
+      if (emailExists && emailExists.id !== user.id) {
+        res.status(409).json({ message: 'Email already in use by another user' });
+        return;
+      }
+      user.email = email;
+    }
+
+    if (password) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      user.password = hashedPassword;
+    }
+
+    await repo.save(user);
+
+    res.status(200).json({
+      message: 'User updated successfully',
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+      },
+    });
+  } catch (err) {
+    console.error('Update error:', err);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
