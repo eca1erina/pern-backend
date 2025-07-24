@@ -7,6 +7,7 @@ import cors from 'cors';
 import userRoutes from '@routes/userRoutes';
 import transactionRoutes from '@routes/transactionRoutes';
 import myDataSource from '@config/database';
+import bankSimulationRoutes from './routes/bankSimulation';
 
 const app = express();
 const port = 3001;
@@ -31,3 +32,4 @@ myDataSource
 
 app.use('/users', userRoutes);
 app.use('/transactions', transactionRoutes);
+app.use('/api/bank', bankSimulationRoutes);

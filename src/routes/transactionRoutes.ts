@@ -20,5 +20,4 @@ router.post('/', addTransaction);
 router.delete('/:id', deleteTransaction);
 router.get('/categories/expense', getExpenseCategories);
 
-
 export default router;
