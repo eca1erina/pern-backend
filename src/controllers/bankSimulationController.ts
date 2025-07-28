@@ -1,4 +1,3 @@
-// controllers/bankSimulationController.ts
 import axios from 'axios';
 import { Request, Response } from 'express';
 

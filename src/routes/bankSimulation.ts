@@ -1,4 +1,3 @@
-// routes/bankSimulation.ts
 import express from 'express';
 import { fetchBankTransactions } from '../controllers/bankSimulationController';
 

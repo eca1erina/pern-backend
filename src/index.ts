@@ -8,6 +8,7 @@ import userRoutes from '@routes/userRoutes';
 import transactionRoutes from '@routes/transactionRoutes';
 import myDataSource from '@config/database';
 import bankSimulationRoutes from './routes/bankSimulation';
+import currencyRoutes from './routes/currencyRoutes';
 
 const app = express();
 const port = 3001;
@@ -33,3 +34,4 @@ myDataSource
 app.use('/users', userRoutes);
 app.use('/transactions', transactionRoutes);
 app.use('/api/bank', bankSimulationRoutes);
+app.use('/api', currencyRoutes);
