@@ -10,11 +10,28 @@ import myDataSource from '@config/database';
 import bankSimulationRoutes from './routes/bankSimulation';
 import currencyRoutes from './routes/currencyRoutes';
 
-const app = express();
+import { ApolloServer } from 'apollo-server-express';
+import typeDefs from './graphql/schema';
+import resolvers from './graphql/resolvers';
+import type { Application } from 'express';
+
+const app: Application = express();
 const port = 3001;
 
 app.use(cors());
 app.use(express.json());
+
+const startApolloServer = async () => {
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+  });
+
+  await server.start();
+  server.applyMiddleware({ app, path: '/graphql' });
+};
+
+startApolloServer();
 
 myDataSource
   .initialize()
