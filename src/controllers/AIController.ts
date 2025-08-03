@@ -25,7 +25,7 @@ export const analyzeUserTransactions = async (req: Request, res: Response): Prom
       return;
     }
 
-    const prompt = `Based on the following user financial transactions, provide 4 helpful financial tips. Make them short and funny, even ridiculous. Remove any unnecessary symbols, such as *#@#. The response should be in the format: Here are 4 tips for you: 1... 2...:\n\n${JSON.stringify(transactions, null, 2)}`;
+    const prompt = `Based on the following user financial transactions, provide 4 helpful financial tips. Make them short and funny, even ridiculous, but actually useful. Remove any unnecessary symbols, such as *#@#. The response should be in the format: Here are 4 tips for you: 1... 2...:\n\n${JSON.stringify(transactions, null, 2)}`;
     
     const aiResponse = await axios.post(GEMINI_API_URL, {
   contents: [

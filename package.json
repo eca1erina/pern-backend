@@ -4,11 +4,11 @@
   "description": "RESTful API with Node.js, Express, and PostgreSQL",
   "main": "index.ts",
   "scripts": {
-    "dev": "nodemon src/index.ts",
-    "build": "npx tsc",
-    "start": "node dist/index.js",
-    "postinstall": "npx tsc"
-  },
+  "dev": "nodemon src/index.ts",
+  "build": "node_modules/.bin/tsc",
+  "start": "node dist/index.js",
+  "postinstall": "node_modules/.bin/tsc"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
