@@ -4,7 +4,8 @@
   "description": "RESTful API with Node.js, Express, and PostgreSQL",
   "main": "index.ts",
   "scripts": {
-  "build": "tsc",
+  "dev": "nodemon src/index.ts",
+  "build": "npx tsc",
   "start": "node dist/index.js"
 },
   "keywords": [],
