@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { Transaction } from '../entities/transactionSchema';
-import dataSource from '@config/database';
+import dataSource from 'config/database';
 
 export const getTransactions = async (req: Request, res: Response): Promise<void> => {
   const userId = Number(req.query.user_id);

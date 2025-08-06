@@ -3,8 +3,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 dotenv.config();
 
-import userRoutes from '@routes/userRoutes';
-import transactionRoutes from '@routes/transactionRoutes';
+import userRoutes from './routes/userRoutes';
+import transactionRoutes from './routes/transactionRoutes';
 import bankSimulationRoutes from './routes/bankSimulation';
 import currencyRoutes from './routes/currencyRoutes';
 import aiRoutes from './routes/aiRoutes';
@@ -36,7 +36,7 @@ app.use('/api/bank', bankSimulationRoutes);
 app.use('/api', currencyRoutes);
 app.use('/api/analyze-transactions', aiRoutes);
 
-import myDataSource from '@config/database';
+import myDataSource from './config/database';
 myDataSource
   .initialize()
   .then(() => {

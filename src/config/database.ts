@@ -9,7 +9,7 @@ const config: PostgresConnectionOptions = {
   password: process.env.PASSWORD,
   database: process.env.DATABASE,
   synchronize: true,
-  entities: ['src/entities/*.ts'],
+  entities: ['dist/entities/*.js'],
 };
 
 const dataSource = new DataSource(config);

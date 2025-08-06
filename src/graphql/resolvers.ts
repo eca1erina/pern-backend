@@ -1,6 +1,6 @@
 import { Users } from '../entities/userSchema';
 import { Transaction } from '../entities/transactionSchema';
-import dataSource from '@config/database';
+import dataSource from 'config/database';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
