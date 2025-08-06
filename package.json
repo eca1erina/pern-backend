@@ -4,11 +4,10 @@
   "description": "RESTful API with Node.js, Express, and PostgreSQL",
   "main": "index.ts",
   "scripts": {
-  "dev": "nodemon src/index.ts",
-  "build": "tsc",
-  "start": "node dist/index.js",
-  "postinstall": "chmod +x node_modules/.bin/tsc"
-},
+    "dev": "nodemon src/index.ts",
+    "build": "tsc",
+  "start": "node -r tsconfig-paths/register dist/index.js",    "postinstall": "chmod +x node_modules/.bin/tsc"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -24,9 +23,9 @@
     "jsonwebtoken": "^9.0.2",
     "pg": "^8.14.1",
     "reflect-metadata": "^0.2.2",
+    "ts-node": "^10.9.2",
     "typeorm": "^0.3.21",
-    "typescript": "^5.8.3",
-    "ts-node": "^10.9.2"
+    "typescript": "^5.8.3"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
@@ -43,9 +42,9 @@
     "tsconfig-paths": "^4.2.0"
   },
   "resolutions": {
-  "@types/express": "^4.17.14"
-},
-"overrides": {
-  "@types/express": "4.17.14"
-}
+    "@types/express": "^4.17.14"
+  },
+  "overrides": {
+    "@types/express": "4.17.14"
+  }
 }
