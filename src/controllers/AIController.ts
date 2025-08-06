@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import dataSource from 'config/database';
+import dataSource from '../config/database';
 import { Transaction } from '../entities/transactionSchema';
 import axios from 'axios';
 import { AxiosError } from 'axios';

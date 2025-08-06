@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { Users } from '../entities/userSchema';
-import dataSource from 'config/database';
+import dataSource from '../config/database';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
