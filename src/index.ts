@@ -13,7 +13,7 @@ import typeDefs from './graphql/schema';
 import resolvers from './graphql/resolvers';
 
 const app = express();
-const port = 3001;
+const port = process.env.PORT;
 
 app.use(cors());
 app.use(express.json());
